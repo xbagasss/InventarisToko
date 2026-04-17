@@ -1,0 +1,7 @@
+{
+  "name": "InventarisToko",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
