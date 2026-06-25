@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+  <div class="login-wrapper">
+    
+    <!-- Animated background nodes -->
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+
+    <div class="login-container">
+      <div class="logo-section">
+        <div class="logo-box">
+          <ion-icon name="logo-buffer"></ion-icon>
+        </div>
+        <h1>Daftar<span>Akun</span></h1>
+        <p>Buat akun baru untuk mulai mengatur stok</p>
+      </div>
+
+      <div class="card login-card">
+        <div class="input-group">
+          <label>Username</label>
+          <div class="input-field">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" [(ngModel)]="username" placeholder="Masukkan username">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <div class="input-field">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" [(ngModel)]="password" placeholder="Masukkan password">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Konfirmasi Password</label>
+          <div class="input-field">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" [(ngModel)]="confirmPassword" placeholder="Ulangi password">
+          </div>
+        </div>
+
+        <button class="login-btn" (click)="onRegister()">
+          <span>Daftar Sekarang</span>
+        </button>
+
+        <div class="login-footer">
+          <p (click)="goToLogin()">Sudah punya akun? <span>Masuk di sini</span></p>
+        </div>
+      </div>
+
+      <div class="system-status">
+        <div class="dot"></div>
+        <span>Sistem Offline Terenkripsi</span>
+      </div>
+    </div>
+  </div>
+</ion-content>

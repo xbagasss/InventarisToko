@@ -1,0 +1,43 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-title>Riwayat Stok</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="bg-light">
+  <div class="search-wrap">
+    <div class="biz-search-box">
+      <ion-icon name="search"></ion-icon>
+      <input type="text" [(ngModel)]="searchQuery" (input)="applyHistoryFilter()" placeholder="Cari riwayat barang...">
+    </div>
+  </div>
+
+  <div class="empty-state" *ngIf="filteredLogs.length === 0">
+    <ion-icon name="time-outline"></ion-icon>
+    <p>{{ searchQuery ? 'Riwayat tidak ditemukan.' : 'Belum ada riwayat perubahan stok.' }}</p>
+  </div>
+
+  <div class="timeline" *ngIf="filteredLogs.length > 0">
+    <ion-card *ngFor="let log of filteredLogs" class="log-card">
+      <ion-card-content class="log-content">
+
+        <!-- Icon dengan warna dinamis sesuai tipe perubahan -->
+        <div class="log-icon"
+             [style.background]="log.quantityChange > 0 ? 'rgba(34,197,94,0.12)' : log.quantityChange < 0 ? 'rgba(239,68,68,0.12)' : 'rgba(37,99,235,0.1)'">
+          <ion-icon
+            [name]="getIconName(log.quantityChange)"
+            [style.color]="log.quantityChange > 0 ? '#22C55E' : log.quantityChange < 0 ? '#EF4444' : '#2563EB'">
+          </ion-icon>
+        </div>
+
+        <div class="log-details">
+          <div class="flex-between">
+            <h4 class="prod-name">{{ log.productName }}</h4>
+            <span class="time">{{ log.timestamp | date:'dd MMM, HH:mm' }}</span>
+          </div>
+          <p class="desc">{{ log.details }}</p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

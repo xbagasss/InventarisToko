@@ -1,0 +1,245 @@
+/* ======================================================
+   Tambah Produk Page — Vibrant Form
+   ====================================================== */
+
+.border-bottom { border-bottom: 1.5px solid rgba(0,0,0,0.06); }
+
+.white-toolbar {
+  --background: #ffffff;
+  --color: #0F172A;
+  @media (prefers-color-scheme: dark) {
+    --background: #1e293b;
+    --color: #F8FAFC;
+  }
+}
+
+.biz-title {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--ion-text-color);
+  letter-spacing: -0.3px;
+}
+
+ion-content[color="light"] {
+  --background: #F8FAFC;
+  @media (prefers-color-scheme: dark) { --background: #0F172A; }
+}
+
+/* ── Form Wrapper ────────────────────────────────────── */
+.biz-form-wrapper {
+  padding: 20px 16px 60px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ── Image Preview Section ───────────────────────────── */
+.biz-image-field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .img-preview-wrap {
+    width: 100%;
+    aspect-ratio: 16/9;
+    border-radius: 14px;
+    overflow: hidden;
+    background: #F1F5F9;
+    border: 2px dashed #CBD5E1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.2s;
+
+    @media (prefers-color-scheme: dark) {
+      background: #1e293b;
+      border-color: rgba(255,255,255,0.1);
+    }
+
+    &.has-image {
+      border-style: solid;
+      border-color: #2563EB;
+    }
+
+    .img-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      color: #94a3b8;
+
+      ion-icon {
+        font-size: 40px;
+        color: #CBD5E1;
+      }
+
+      span {
+        font-size: 13px;
+        font-weight: 600;
+      }
+    }
+  }
+}
+
+/* ── Input with icon ────────────────────────────────── */
+.input-with-icon {
+  display: flex;
+  align-items: center;
+  background: #ffffff;
+  border: 2px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 0 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+
+  @media (prefers-color-scheme: dark) {
+    background: #1e293b;
+    border-color: rgba(255,255,255,0.1);
+  }
+
+  &:focus-within {
+    border-color: #2563EB;
+    box-shadow: 0 0 0 4px rgba(37,99,235,0.12);
+  }
+
+  ion-icon {
+    font-size: 20px;
+    color: #2563EB;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  input {
+    flex: 1;
+    height: 52px;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--ion-text-color);
+    font-family: inherit;
+
+    &::placeholder { color: #94a3b8; }
+  }
+}
+
+/* ── Field ───────────────────────────────────────────── */
+.biz-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 12px;
+    font-weight: 700;
+    color: #64748B;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+  }
+
+  input, select, textarea {
+    height: 52px;
+    padding: 0 18px;
+    border-radius: 14px;
+    border: 2px solid #e2e8f0;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--ion-text-color);
+    background: #ffffff;
+    font-family: inherit;
+    transition: all 0.2s ease;
+    -webkit-appearance: none;
+    appearance: none;
+    line-height: normal;
+
+    @media (prefers-color-scheme: dark) {
+      background: rgba(30, 41, 59, 0.5);
+      border-color: rgba(255, 255, 255, 0.08);
+      color: #F8FAFC;
+    }
+
+    &::placeholder { color: #94a3b8; font-weight: 400; opacity: 0.7; }
+
+    &:hover {
+      border-color: #cbd5e1;
+      @media (prefers-color-scheme: dark) { border-color: rgba(255,255,255,0.15); }
+    }
+
+    &:focus {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+      background: #ffffff;
+      outline: none;
+      @media (prefers-color-scheme: dark) { background: #1e293b; }
+    }
+  }
+
+  /* Remove Number Spinners (arrows) */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+  }
+  input[type=number] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
+
+  textarea {
+    height: auto;
+    padding: 14px 16px;
+  }
+}
+
+.biz-field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+  box-sizing: border-box;
+
+  .biz-field {
+    min-width: 0;
+  }
+}
+
+/* ── Primary Save Button ─────────────────────────────── */
+.biz-btn-primary {
+  height: 58px;
+  width: 100%;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  margin-top: 4px;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.38);
+  cursor: pointer;
+  letter-spacing: 0.4px;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  ion-icon { font-size: 22px; }
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.25);
+  }
+
+  &:disabled {
+    opacity: 0.35;
+    box-shadow: none;
+    pointer-events: none;
+  }
+}

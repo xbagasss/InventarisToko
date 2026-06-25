@@ -1,0 +1,172 @@
+/* ======================================================
+   History / Riwayat Stok Page — Vibrant Timeline
+   ====================================================== */
+
+ion-header ion-toolbar {
+  --background: #ffffff;
+  --color: #0F172A;
+  --border-color: transparent;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+
+  @media (prefers-color-scheme: dark) {
+    --background: #1e293b;
+    --color: #F8FAFC;
+  }
+
+  ion-title {
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: -0.3px;
+  }
+}
+
+ion-content.bg-light {
+  --background: #F8FAFC;
+
+  @media (prefers-color-scheme: dark) {
+    --background: #0F172A;
+  }
+}
+
+.search-wrap {
+  padding: 16px;
+  background: white;
+  @media (prefers-color-scheme: dark) { background: #0F172A; }
+}
+
+.biz-search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  height: 48px;
+  border-radius: 12px;
+  padding: 0 14px;
+  border: 1.5px solid transparent;
+  transition: all 0.2s;
+
+  @media (prefers-color-scheme: dark) {
+    background: #1e293b;
+  }
+
+  &:focus-within {
+    border-color: #2563EB;
+    background: white;
+    @media (prefers-color-scheme: dark) { background: #1e293b; }
+  }
+
+  ion-icon { font-size: 20px; color: #2563EB; margin-right: 10px; }
+  input { flex: 1; border: none; background: transparent; outline: none; font-size: 14px; color: var(--ion-text-color); }
+}
+
+/* ── Empty State ─────────────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 80px 40px;
+  color: #94a3b8;
+
+  ion-icon {
+    font-size: 64px;
+    color: #2563EB;
+    opacity: 0.35;
+    display: block;
+    margin: 0 auto 16px auto;
+  }
+
+  p {
+    font-size: 15px;
+    font-weight: 600;
+    color: #64748B;
+    margin: 0;
+  }
+}
+
+/* ── Timeline ────────────────────────────────────────── */
+.timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px 16px 80px 16px;
+}
+
+/* ── Log Card ────────────────────────────────────────── */
+.log-card {
+  margin: 0;
+  border-radius: 14px;
+  background: #ffffff;
+  border: 1.5px solid rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  overflow: visible;
+
+  @media (prefers-color-scheme: dark) {
+    background: #1e293b;
+    border-color: rgba(255,255,255,0.06);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  }
+
+  .log-content {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+  }
+
+  .log-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    ion-icon {
+      font-size: 26px;
+    }
+  }
+
+  .log-details {
+    flex: 1;
+    min-width: 0;
+
+    .flex-between {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .prod-name {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ion-text-color);
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .time {
+      font-size: 11px;
+      font-weight: 600;
+      color: #94a3b8;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 6px;
+
+      @media (prefers-color-scheme: dark) {
+        background: #334155;
+        color: #94a3b8;
+      }
+    }
+
+    .desc {
+      font-size: 13px;
+      font-weight: 500;
+      color: #64748B;
+      margin: 0;
+    }
+  }
+}

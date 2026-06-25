@@ -1,0 +1,226 @@
+.login-wrapper {
+  position: relative;
+  min-height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #F8FAFC;
+  overflow: hidden;
+  padding: 24px;
+
+  @media (prefers-color-scheme: dark) {
+    background: #0F172A;
+  }
+}
+
+.bg-blur {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  filter: blur(80px);
+  z-index: 0;
+  opacity: 0.15;
+
+  &.blur-1 {
+    top: -50px;
+    right: -50px;
+    background: #2563EB;
+  }
+
+  &.blur-2 {
+    bottom: -50px;
+    left: -50px;
+    background: #10B981;
+  }
+}
+
+.login-container {
+  width: 100%;
+  max-width: 400px;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.logo-section {
+  text-align: center;
+
+  .logo-box {
+    width: 72px;
+    height: 72px;
+    background: #2563EB;
+    border-radius: 20px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 24px rgba(37,99,235,0.3);
+    
+    ion-icon {
+      font-size: 36px;
+      color: white;
+    }
+  }
+
+  h1 {
+    font-size: 28px;
+    font-weight: 800;
+    color: #1E293B;
+    margin: 0;
+    letter-spacing: -0.5px;
+
+    span { color: #2563EB; }
+    @media (prefers-color-scheme: dark) { color: white; }
+  }
+
+  p {
+    margin: 8px 0 0 0;
+    color: #64748B;
+    font-size: 14px;
+    font-weight: 500;
+  }
+}
+
+.login-card {
+  background: white;
+  padding: 32px;
+  border-radius: 28px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  border: 1px solid rgba(255,255,255,0.8);
+
+  @media (prefers-color-scheme: dark) {
+    background: #1E293B;
+    border-color: rgba(255,255,255,0.05);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+  }
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    font-size: 13px;
+    font-weight: 700;
+    color: #64748B;
+    padding-left: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .input-field {
+    display: flex;
+    align-items: center;
+    background: #F1F5F9;
+    border-radius: 16px;
+    padding: 0 16px;
+    height: 56px;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+
+    @media (prefers-color-scheme: dark) {
+      background: #0F172A;
+    }
+
+    &:focus-within {
+      border-color: #2563EB;
+      background: white;
+      box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+      @media (prefers-color-scheme: dark) { background: #0F172A; }
+    }
+
+    ion-icon {
+      font-size: 20px;
+      color: #64748B;
+      margin-right: 12px;
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 15px;
+      font-weight: 600;
+      color: #1E293B;
+      @media (prefers-color-scheme: dark) { color: white; }
+
+      &::placeholder { color: #94A3B8; font-weight: 400; }
+    }
+  }
+}
+
+.login-btn {
+  height: 58px;
+  background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+  border: none;
+  border-radius: 16px;
+  color: white;
+  font-size: 16px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(37,99,235,0.4);
+  transition: all 0.2s;
+  margin-top: 8px;
+
+  &:active {
+    transform: scale(0.97);
+    box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+  }
+
+  ion-icon { font-size: 20px; }
+}
+
+.login-footer {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  p {
+    font-size: 14px;
+    color: #64748B;
+    font-weight: 500;
+    margin: 0;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover, &:active {
+      color: #2563EB;
+    }
+
+    span {
+      color: #2563EB;
+      font-weight: 700;
+    }
+  }
+}
+
+.system-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: #64748B;
+  font-size: 12px;
+  font-weight: 700;
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(16,185,129,0.5);
+  }
+}

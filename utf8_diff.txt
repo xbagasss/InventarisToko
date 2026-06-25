@@ -1,0 +1,8 @@
+﻿src/app/app.routes.ts
+src/app/home/home.page.html
+src/app/home/home.page.scss
+src/app/home/home.page.spec.ts
+src/app/home/home.page.ts
+src/global.scss
+src/main.ts
+src/theme/variables.scss

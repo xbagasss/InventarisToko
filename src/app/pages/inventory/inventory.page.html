@@ -1,0 +1,164 @@
+<ion-content class="ion-padding" color="light">
+
+  <!-- Header with Export -->
+  <div class="biz-pg-header">
+    <div class="pg-title">Daftar Inventaris</div>
+    <div style="display: flex; gap: 8px;">
+      <button class="export-btn" (click)="exportToCSV()">
+        <ion-icon name="download-outline"></ion-icon>
+        <span>CSV</span>
+      </button>
+      <button class="export-btn" (click)="exportToPDF()" style="background: #ef4444; color: white; border-color: #ef4444;">
+        <ion-icon name="document-text-outline"></ion-icon>
+        <span>PDF</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Bold Search Area -->
+  <div class="biz-search-section">
+    <div class="biz-search-box">
+      <ion-icon name="search"></ion-icon>
+      <input type="text" [(ngModel)]="searchQuery" (input)="applyFilter()" placeholder="Cari barang di toko...">
+    </div>
+
+    <div class="biz-chip-scroll">
+      <div class="biz-chip" [class.active]="selectedCategory === 'All'" (click)="selectedCategory = 'All'; applyFilter()">Semua</div>
+      <div class="biz-chip" *ngFor="let c of categories" [class.active]="selectedCategory === c" (click)="selectedCategory = c; applyFilter()">{{ c }}</div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div class="biz-empty-state" *ngIf="filteredProducts.length === 0">
+    <ion-icon name="cube-outline"></ion-icon>
+    <div class="biz-title">Produk tidak ditemukan</div>
+    <div class="biz-caption">Coba cari dengan kata kunci lain.</div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="biz-product-grid">
+    <div class="pro-card biz-product-card" *ngFor="let p of filteredProducts">
+
+      <!-- Product Image -->
+      <div class="biz-card-image">
+        <img *ngIf="p.image" [src]="p.image" [alt]="p.name" class="prod-img">
+        <div *ngIf="!p.image" class="img-empty">
+          <ion-icon name="image-outline"></ion-icon>
+        </div>
+      </div>
+
+      <!-- Content -->
+      <div class="biz-card-content">
+        <div class="flex-between">
+          <div class="biz-badge">{{ p.category }}</div>
+          <div class="biz-status-badge" [class]="stockStatus(p.stock).class">
+            {{ stockStatus(p.stock).label }}
+          </div>
+        </div>
+        <h3 class="biz-prod-name">{{ p.name }}</h3>
+
+        <div class="biz-info-row">
+          <div class="biz-price">Rp {{ p.price | number:'1.0-0' }}</div>
+        </div>
+      </div>
+
+      <!-- Footer: stock manager + actions -->
+      <div class="biz-card-footer">
+        <div class="biz-stock-manager">
+          <button class="biz-btn-circle" (click)="quickUpdateStock(p, -1)" [disabled]="p.stock <= 0">
+            <ion-icon name="remove"></ion-icon>
+          </button>
+
+          <div class="stock-num" [class]="stockColor(p.stock)">
+            {{ p.stock }}
+          </div>
+
+          <button class="biz-btn-circle plus" (click)="quickUpdateStock(p, 1)">
+            <ion-icon name="add"></ion-icon>
+          </button>
+        </div>
+
+        <div class="biz-manage-panel">
+          <button class="action-btn text-blue" (click)="openModal(p)">Edit</button>
+          <button class="action-btn text-red" (click)="deleteProduct(p.id)">Hapus</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Modal -->
+  <ion-modal [isOpen]="isModalOpen" (didDismiss)="closeModal()" class="biz-modal">
+    <ng-template>
+      <ion-header class="ion-no-border border-bottom">
+        <ion-toolbar class="white-toolbar">
+          <ion-title class="biz-title">{{ editingProduct ? 'Ubah Rincian' : 'Tambah Baru' }}</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="closeModal()" color="dark">
+              <ion-icon name="close-circle"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding" color="light">
+        <div class="biz-form-wrapper">
+
+          <!-- Image Preview + URL -->
+          <div class="biz-image-field">
+            <div class="img-preview-wrap" [class.has-image]="formData.image">
+              <img *ngIf="formData.image" [src]="formData.image" alt="Preview" class="img-preview">
+              <div *ngIf="!formData.image" class="img-placeholder">
+                <ion-icon name="image-outline"></ion-icon>
+                <span>Belum ada gambar</span>
+              </div>
+            </div>
+            <div class="biz-field">
+              <label>Upload Gambar Produk</label>
+              <div class="input-with-icon" style="cursor: pointer;" (click)="fileInput.click()">
+                <ion-icon name="cloud-upload-outline"></ion-icon>
+                <span style="flex: 1; font-size: 14px; font-weight: 500; color: var(--ion-text-color);">
+                  {{ formData.image ? 'Ganti Foto' : 'Pilih Foto dari Perangkat' }}
+                </span>
+                <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
+              </div>
+            </div>
+          </div>
+
+          <div class="biz-field">
+            <label>Nama Produk</label>
+            <input type="text" [(ngModel)]="formData.name" placeholder="Misal: Baju Bayi Ceria">
+          </div>
+
+          <div class="biz-field">
+            <label>Kategori</label>
+            <select [(ngModel)]="formData.category">
+              <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+            </select>
+          </div>
+
+          <div class="biz-field-row">
+            <div class="biz-field">
+              <label>Harga (Rp)</label>
+              <input type="number" [(ngModel)]="formData.price" min="0" placeholder="Contoh: 10k">
+            </div>
+            <div class="biz-field">
+              <label>Stok</label>
+              <input type="number" [(ngModel)]="formData.stock" min="0" placeholder="Contoh: 10">
+            </div>
+          </div>
+
+          <div class="biz-field">
+            <label>Deskripsi</label>
+            <textarea [(ngModel)]="formData.notes" placeholder="Catatan tambahan..." rows="3"></textarea>
+          </div>
+
+          <button class="biz-btn-primary" (click)="saveProduct()">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+            {{ editingProduct ? 'Simpan Perubahan' : 'Tambahkan Produk' }}
+          </button>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+</ion-content>

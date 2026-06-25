@@ -1,0 +1,145 @@
+<ion-content class="ion-padding" color="light">
+
+  <!-- App Header -->
+  <div class="biz-header">
+    <div class="biz-profile">
+      <img src="assets/logo.png" alt="InventarisToko Logo">
+      <div>
+        <div class="biz-caption">Selamat Datang 👋</div>
+        <div class="biz-title">{{ username }}</div>
+      </div>
+    </div>
+    <div class="header-actions">
+      <div class="bell-btn" (click)="setNotifModal(true)">
+        <ion-icon name="notifications"></ion-icon>
+        <div class="notif-badge" *ngIf="lowStockCount > 0">{{ lowStockCount }}</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Premium Notification Sheet -->
+  <ion-modal [isOpen]="isNotifModalOpen" (didDismiss)="setNotifModal(false)" 
+             [initialBreakpoint]="0.65" [breakpoints]="[0, 0.65, 0.9]"
+             class="notif-sheet">
+    <ng-template>
+      <div class="sheet-handle"></div>
+      
+      <ion-header class="ion-no-border sheet-header">
+        <ion-toolbar>
+          <ion-title>Peringatan Stok</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setNotifModal(false)" class="sheet-close">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+
+      <ion-content class="ion-padding sheet-content">
+        <div class="notif-summary" *ngIf="lowStockCount > 0">
+          <div class="summary-icon">
+            <ion-icon name="warning"></ion-icon>
+          </div>
+          <div class="summary-text">
+            <h3>{{ lowStockCount }} Produk kritis</h3>
+            <p>Segera lakukan pemesanan untuk menjaga operasional.</p>
+          </div>
+        </div>
+
+        <div class="notif-list-container">
+          <div class="notif-item-card" *ngFor="let item of lowStockItems">
+            <div class="item-img-box">
+              <img [src]="item.image" alt="item">
+            </div>
+            <div class="item-info-box">
+              <div class="item-meta">
+                <span class="cat">{{ item.category }}</span>
+                <span class="stock-badge">Sisa {{ item.stock }}</span>
+              </div>
+              <h4 class="item-name">{{ item.name }}</h4>
+              <div class="item-action">
+                <ion-icon name="arrow-forward-outline"></ion-icon>
+                <span>Klik untuk restock</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="premium-empty" *ngIf="lowStockCount === 0">
+            <div class="empty-glow"></div>
+            <ion-icon name="shield-checkmark"></ion-icon>
+            <h3>Stok Sangat Aman</h3>
+            <p>Semua inventaris Anda dalam kondisi optimal hari ini.</p>
+          </div>
+        </div>
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+
+  <div class="biz-stat-grid">
+    <!-- Big Wallet Card — Bright Blue Gradient -->
+    <div class="pro-card wallet-card primary-gradient">
+      <div class="stat-top">
+        <ion-icon name="wallet"></ion-icon>
+        <span>Total Nilai Stok</span>
+      </div>
+      <div class="stat-main-box">
+        <span class="currency">Rp</span>
+        <span class="value">{{ totalStockValue | number:'1.0-0' }}</span>
+      </div>
+      <div class="stat-sub">Semua produk aktif</div>
+    </div>
+
+    <!-- Category Distribution Chart Card -->
+    <div class="pro-card chart-card">
+      <div class="card-header">
+        <ion-icon name="pie-chart"></ion-icon>
+        <span>Sebaran Kategori</span>
+      </div>
+      <div class="chart-container">
+        <canvas #catChart></canvas>
+      </div>
+    </div>
+
+    <!-- Mini Cards Row -->
+    <div class="mini-stats">
+
+      <!-- Total Produk -->
+      <div class="pro-card mini-card">
+        <div class="icon-wrap" style="background: rgba(37,99,235,0.12);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <rect x="2" y="7" width="20" height="15" rx="2" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+            <path d="M16 7V5C16 3.9 15.1 3 14 3H10C8.9 3 8 3.9 8 5V7" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+            <line x1="12" y1="12" x2="12" y2="17" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+            <line x1="9.5" y1="14.5" x2="14.5" y2="14.5" stroke="#2563EB" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="val" style="color: #2563EB;">{{ totalProducts }}</div>
+        <div class="mini-label">Total Produk</div>
+      </div>
+
+      <!-- Stok Kritis -->
+      <div class="pro-card mini-card" [class.border-red]="lowStockCount > 0">
+        <div class="icon-wrap" style="background: rgba(239,68,68,0.12);">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
+            <path d="M10.29 3.86L1.82 18A2 2 0 003.54 21H20.46A2 2 0 0022.18 18L13.71 3.86A2 2 0 0010.29 3.86Z" stroke="#EF4444" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="12" y1="9" x2="12" y2="13" stroke="#EF4444" stroke-width="2" stroke-linecap="round"/>
+            <circle cx="12" cy="17" r="1" fill="#EF4444"/>
+          </svg>
+        </div>
+        <div class="val" style="color: #EF4444;">{{ lowStockCount }}</div>
+        <div class="mini-label">Stok Kritis</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Logout Section At Bottom -->
+  <div class="bottom-action-section">
+    <button class="logout-large-btn" (click)="handleLogout()">
+      <ion-icon name="log-out-outline"></ion-icon>
+      <span>Keluar dari Akun</span>
+    </button>
+    <div class="app-version">Versi 1.0.4 — Premium Bundle</div>
+  </div>
+
+</ion-content>

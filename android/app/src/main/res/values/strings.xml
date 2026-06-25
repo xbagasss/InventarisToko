@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">InventarisToko</string>
+    <string name="title_activity_main">InventarisToko</string>
+    <string name="package_name">com.inventaristoko.app</string>
+    <string name="custom_url_scheme">com.inventaristoko.app</string>
+</resources>

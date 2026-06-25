@@ -1,0 +1,38 @@
+<ion-header class="ion-no-border border-bottom">
+  <ion-toolbar class="white-toolbar">
+    <ion-title class="biz-title">Asisten AI</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="chat-content" color="light">
+  <div class="chat-container">
+    <div *ngFor="let msg of messages" class="message-row" [class.user]="msg.sender === 'user'" [class.ai]="msg.sender === 'ai'">
+      
+      <div class="avatar" *ngIf="msg.sender === 'ai'">
+        <ion-icon name="sparkles-outline"></ion-icon>
+      </div>
+
+      <div class="message-bubble" [innerHTML]="formatText(msg.text)"></div>
+      
+    </div>
+
+    <div class="message-row ai" *ngIf="isTyping">
+      <div class="avatar">
+        <ion-icon name="sparkles-outline"></ion-icon>
+      </div>
+      <div class="message-bubble typing-bubble">
+        <ion-spinner name="dots"></ion-spinner>
+      </div>
+    </div>
+  </div>
+</ion-content>
+
+<!-- Chat Input Footer -->
+<div class="chat-footer">
+  <div class="input-wrapper">
+    <input type="text" [(ngModel)]="userInput" placeholder="Tanyakan laporan barang..." (keyup.enter)="sendMessage()" />
+    <button class="send-btn" (click)="sendMessage()" [disabled]="!userInput.trim()">
+      <ion-icon name="send-outline"></ion-icon>
+    </button>
+  </div>
+</div>

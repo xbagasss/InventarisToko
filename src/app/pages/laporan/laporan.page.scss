@@ -1,0 +1,185 @@
+/* Laporan AI Chat Styles */
+.border-bottom { border-bottom: 1.5px solid rgba(0,0,0,0.06); }
+
+.white-toolbar {
+  --background: #ffffff;
+  --color: #0F172A;
+  @media (prefers-color-scheme: dark) {
+    --background: #1e293b;
+    --color: #F8FAFC;
+  }
+}
+
+.biz-title {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+ion-content.chat-content {
+  --background: #F8FAFC;
+  @media (prefers-color-scheme: dark) { --background: #0F172A; }
+}
+
+.chat-container {
+  padding: 20px 16px 80px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  width: 100%;
+  
+  &.user {
+    justify-content: flex-end;
+    .message-bubble {
+      background: linear-gradient(135deg, #2563EB 0%, #1d4ed8 100%);
+      color: white;
+      border-bottom-right-radius: 4px;
+      box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+    }
+  }
+
+  &.ai {
+    justify-content: flex-start;
+    .message-bubble {
+      background: white;
+      color: #0F172A;
+      border-bottom-left-radius: 4px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+      @media (prefers-color-scheme: dark) {
+        background: #1e293b;
+        border-color: rgba(255,255,255,0.1);
+        color: #F8FAFC;
+      }
+    }
+  }
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8B5CF6 0%, #6D28D9 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  ion-icon {
+    color: white;
+    font-size: 16px;
+  }
+}
+
+.message-bubble {
+  max-width: 75%;
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 14px;
+  line-height: 1.5;
+  font-weight: 500;
+  
+  strong {
+    font-weight: 700;
+  }
+}
+
+.typing-bubble {
+  padding: 8px 16px !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  ion-spinner {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+.chat-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 12px 16px 20px 16px; /* Extra padding for iOS bottom bar */
+  border-top: 1px solid #e2e8f0;
+  z-index: 1000;
+  
+  @media (prefers-color-scheme: dark) {
+    background: #1e293b;
+    border-top-color: rgba(255,255,255,0.1);
+  }
+
+  .input-wrapper {
+    display: flex;
+    align-items: center;
+    background: #F1F5F9;
+    border-radius: 24px;
+    padding: 4px 4px 4px 16px;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+
+    @media (prefers-color-scheme: dark) {
+      background: #0F172A;
+      border-color: rgba(255,255,255,0.05);
+    }
+
+    &:focus-within {
+      border-color: #2563EB;
+      box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+    }
+
+    input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 14px;
+      color: #0F172A;
+      padding: 10px 0;
+      @media (prefers-color-scheme: dark) { color: #F8FAFC; }
+      
+      &::placeholder {
+        color: #94a3b8;
+      }
+    }
+
+    .send-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #2563EB;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      margin-left: 8px;
+      
+      &:disabled {
+        background: #94a3b8;
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      ion-icon {
+        color: white;
+        font-size: 18px;
+        margin-left: -2px; /* Visual center adjustment */
+      }
+    }
+  }
+}
+
+// Global adjustment to push content up because of fixed footer
+ion-content {
+  --padding-bottom: 90px;
+}

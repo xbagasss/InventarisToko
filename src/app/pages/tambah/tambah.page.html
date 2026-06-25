@@ -1,0 +1,64 @@
+<ion-header class="ion-no-border border-bottom">
+  <ion-toolbar class="white-toolbar">
+    <ion-title class="biz-title">Tambah Produk</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" color="light">
+  <div class="biz-form-wrapper">
+
+    <!-- Image Preview & URL Input -->
+    <div class="biz-image-field">
+      <div class="img-preview-wrap" [class.has-image]="formData.image">
+        <img *ngIf="formData.image" [src]="formData.image" alt="Preview Gambar" class="img-preview">
+        <div *ngIf="!formData.image" class="img-placeholder">
+          <ion-icon name="image-outline"></ion-icon>
+          <span>Tidak ada gambar</span>
+        </div>
+      </div>
+      <div class="biz-field">
+        <label>Upload Gambar Produk</label>
+        <div class="input-with-icon" style="cursor: pointer;" (click)="fileInput.click()">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          <span style="flex: 1; font-size: 14px; font-weight: 500; color: var(--ion-text-color);">
+            {{ formData.image ? 'Ganti Foto' : 'Pilih Foto dari Perangkat' }}
+          </span>
+          <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;">
+        </div>
+      </div>
+    </div>
+
+    <div class="biz-field">
+      <label>Nama Produk</label>
+      <input type="text" [(ngModel)]="formData.name" placeholder="Misal: Sarung Tangan">
+    </div>
+
+    <div class="biz-field">
+      <label>Kategori</label>
+      <select [(ngModel)]="formData.category">
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+    </div>
+
+    <div class="biz-field-row">
+      <div class="biz-field">
+        <label>Harga Jual (Rp)</label>
+        <input type="number" [(ngModel)]="formData.price" min="0" placeholder="Contoh: 15.000">
+      </div>
+      <div class="biz-field">
+        <label>Stok Awal</label>
+        <input type="number" [(ngModel)]="formData.stock" min="0" placeholder="Contoh: 50">
+      </div>
+    </div>
+
+    <div class="biz-field">
+      <label>Deskripsi Tambahan</label>
+      <textarea [(ngModel)]="formData.notes" placeholder="Tulis catatan..." rows="3"></textarea>
+    </div>
+
+    <button class="biz-btn-primary" (click)="saveProduct()" [disabled]="!formData.name">
+      <ion-icon name="checkmark-circle-outline"></ion-icon>
+      Simpan Produk
+    </button>
+  </div>
+</ion-content>

@@ -1,0 +1,51 @@
+<ion-content [fullscreen]="true">
+  <div class="login-wrapper">
+    
+    <!-- Animated background nodes -->
+    <div class="bg-blur blur-1"></div>
+    <div class="bg-blur blur-2"></div>
+
+    <div class="login-container">
+      <div class="logo-section">
+        <div class="logo-box">
+          <ion-icon name="logo-buffer"></ion-icon>
+        </div>
+        <h1>Inventaris<span>Toko</span></h1>
+        <p>Manajemen stok cerdas & profesional</p>
+      </div>
+
+      <div class="card login-card">
+        <div class="input-group">
+          <label>Username</label>
+          <div class="input-field">
+            <ion-icon name="person-outline"></ion-icon>
+            <input type="text" [(ngModel)]="username" placeholder="Masukkan username">
+          </div>
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <div class="input-field">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+            <input type="password" [(ngModel)]="password" placeholder="Masukkan password">
+          </div>
+        </div>
+
+        <button class="login-btn" (click)="onLogin()">
+          <span>Masuk Sekarang</span>
+          <ion-icon name="log-in-outline"></ion-icon>
+        </button>
+
+        <div class="login-footer">
+          <p (click)="goToForgotPassword()">Lupa password?</p>
+          <p (click)="goToRegister()">Belum punya akun? <span>Daftar di sini</span></p>
+        </div>
+      </div>
+
+      <div class="system-status">
+        <div class="dot"></div>
+        <span>Sistem Offline Terenkripsi</span>
+      </div>
+    </div>
+  </div>
+</ion-content>
